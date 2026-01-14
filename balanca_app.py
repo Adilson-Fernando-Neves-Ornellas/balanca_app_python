@@ -50,21 +50,29 @@ def ler_peso_balanca():
         ser = serial.Serial(
             port=porta,
             baudrate=BAUDRATE,
-            timeout=1
+            timeout=0.5
         )
 
-        time.sleep(1)
-        dados = ser.read(ser.in_waiting or 200)
+        time.sleep(0.5)
+
+        dados = ser.read(ser.in_waiting or 100)
         ser.close()
 
         texto = dados.decode('latin-1', errors='ignore')
-        print("📦 DADOS BRUTOS DA BALANÇA:")
-        print(repr(texto))
 
-        return None
+        # Exemplo recebido:
+        # "= 001.000= 001.000= 001.000"
+        # Vamos extrair TODOS os números
+        pesos = re.findall(r'(\d+\.\d+)', texto)
+
+        if not pesos:
+            return None
+
+        # Usa o último valor (mais recente)
+        peso = float(pesos[-1])
+        return round(peso, 3)
 
     except Exception as e:
-        print("❌ ERRO:", e)
         return None
 
 
