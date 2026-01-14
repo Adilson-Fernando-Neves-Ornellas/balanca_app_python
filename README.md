@@ -65,11 +65,17 @@ Adaptador DB9 com pinos 2 e 3 invertidos
 
 📌 Fluxo correto de conexão
 Balança
+
    ↓
+   
 Cabo que troca os pinos 2 ↔ 3 (Null Modem)
+
    ↓
+   
 Cabo RS232 → USB (cabo comprado)
+
    ↓
+   
 Computador ou Raspberry Pi
 
 
