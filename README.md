@@ -106,6 +106,7 @@ Basta executar o arquivo para iniciar a aplicação.
 Ao iniciar a aplicação, a seguinte mensagem será exibida no console:
 
 🚀 Balança App iniciado
+
 🌐 Servidor em http://0.0.0.0:3333
 
 
@@ -145,11 +146,15 @@ A aplicação detecta automaticamente a **primeira porta serial disponível** no
 ### Exemplos comuns
 
 **Linux / Raspberry Pi**
+
 /dev/ttyUSB0
+
 /dev/ttyACM0
 
 **Windows**
+
 COM3
+
 COM4
 
 ---
