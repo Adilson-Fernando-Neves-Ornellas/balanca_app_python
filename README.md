@@ -1,69 +1,49 @@
 🧾 Balança App
 
-Aplicação desenvolvida em Python + Flask para leitura de peso de balanças seriais (USB / RS232) e disponibilização das informações através de uma API HTTP.
+Aplicação desenvolvida em Python + Flask para leitura de peso de balanças seriais (USB / RS232) e disponibilização das informações através de uma API HTTP. Ideal para rodar em Raspberry Pi ou PC (Windows / Linux), permitindo que outros sistemas como Web, ERP, PDV ou automações consumam o peso da balança pela rede local.
 
-Ideal para rodar em Raspberry Pi ou PC (Windows / Linux), permitindo que outros sistemas como Web, ERP, PDV ou automações consumam o peso da balança pela rede local.
-
-🚀 Funcionalidades
+🚀 Funcionalidades:
 
 🔌 Detecção automática da porta serial da balança
-
 ⚖️ Leitura dos dados enviados pela balança via comunicação serial
-
 🌐 API REST simples e leve usando Flask
-
 🔓 CORS habilitado (acesso permitido por qualquer frontend)
-
 🧠 Compatível com Raspberry Pi, Windows e Linux
-
 📡 Acesso via rede local (LAN)
 
-🛠️ Tecnologias Utilizadas
-
+🛠️ Tecnologias Utilizadas:
 Python 3.8+
-
 Flask
-
 Flask-CORS
-
 PySerial
 
-📦 Requisitos
+📦 Requisitos:
 Sistema Operacional
-
 Raspberry Pi OS
-
 Linux
-
 Windows
 
 Software
-
 Python 3 instalado (caso utilize a versão em Python)
 
 Hardware
-
 Balança com saída serial RS232
-
 Cabo RS232 → USB
-
 Cabo Null Modem (troca os pinos 2 ↔ 3)
 
 🔌 ⚠️ ATENÇÃO: TIPO DE CABO SERIAL (MUITO IMPORTANTE)
 
-⚠️ Este ponto é essencial para o funcionamento da aplicação.
-
+Este ponto é essencial para o funcionamento da aplicação.
 A maioria das balanças utiliza comunicação RS232, onde os sinais de TX e RX são invertidos em relação ao computador.
 
 👉 Por isso, é obrigatório utilizar um cabo que faça a troca dos pinos 2 e 3 (TX ↔ RX), também conhecido como:
 
 Cabo Null Modem
-
 Cabo serial com TX/RX cruzado
-
 Adaptador DB9 com pinos 2 e 3 invertidos
 
 📌 Fluxo correto de conexão
+
 Balança
 
    ↓
@@ -92,17 +72,6 @@ Endpoint /status funciona normalmente
 Endpoint /peso sempre retorna erro
 
 Nenhum dado aparece nos testes de leitura serial
-
-✅ Soluções recomendadas
-
-Utilizar um cabo Null Modem entre a balança e o adaptador
-
-Utilizar um adaptador RS232 → USB que já informe TX/RX cruzado
-
-Utilizar um adaptador DB9 Fêmea–Fêmea cruzado
-
-⚠️ Nem todo adaptador USB–RS232 faz essa troca automaticamente.
-Sempre verifique a descrição técnica do produto.
 
 📥 Instalação
 ▶️ Windows (Executável)
