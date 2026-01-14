@@ -4,7 +4,7 @@ Aplicação desenvolvida em Python + Flask para leitura de peso de balanças ser
 
 🚀 Funcionalidades:
 
-🔌 Detecção automática da porta serial da balança
+🔌 Detecção automática da porta serial da balança\n
 ⚖️ Leitura dos dados enviados pela balança via comunicação serial
 🌐 API REST simples e leve usando Flask
 🔓 CORS habilitado (acesso permitido por qualquer frontend)
