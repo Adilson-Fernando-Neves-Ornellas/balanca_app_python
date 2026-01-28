@@ -5,7 +5,6 @@ import serial.tools.list_ports
 import re
 import time
 import sys
-
 import threading
 import requests
 
@@ -16,7 +15,7 @@ BAUDRATE = 9600
 TIMEOUT = 1
 porta_detectada = None
 
-API_URL = "https://seuservidor.com/api/peso"  # <<< SUA API
+API_URL = "https://admin.timeclean.hml.hotztec.com/api/balanca/um"  # <<< SUA API
 INTERVALO_LEITURA = 0.5  # segundos
 VARIACAO_MINIMA = 0.001  # evita ruído
 peso_atual = None
@@ -40,14 +39,14 @@ def detectar_porta_balanca():
 
     portas = list(serial.tools.list_ports.comports())
 
-    if not portas:
-        print("❌ NÃO HÁ PORTAS DISPONÍVEIS")
-        return None
+    for porta in portas:
+        if porta.device.startswith("/dev/ttyUSB"):
+            porta_detectada = porta.device
+            print(f"✅ Porta da balança detectada: {porta_detectada}")
+            return porta_detectada
 
-    # Windows normalmente tem só uma USB serial
-    porta_detectada = portas[0].device
-    print(f"✅ Porta serial detectada: {porta_detectada}")
-    return porta_detectada
+    print("❌ Nenhuma balança USB detectada")
+    return None
 
 def ler_peso_balanca():
     porta = detectar_porta_balanca()
@@ -77,13 +76,12 @@ def ler_peso_balanca():
         if not pesos:
             return None
 
-        # Usa o último valor (mais recente)
+    # Usa o último valor (mais recente)
         peso = float(pesos[-1])
         return round(peso, 3)
 
     except Exception as e:
         return None
-
 
 def enviar_peso_api(peso):
     try:
@@ -134,7 +132,6 @@ def peso():
         'peso': peso_atual
     })
 
-
 @app.route('/status')
 def status():
     porta = detectar_porta_balanca()
@@ -144,8 +141,7 @@ def status():
         'app': 'Balanca App Raspberry',
         'porta': porta if porta else 'não detectada'
     })
-
-
+    
 @app.after_request
 def cors_headers(response):
     response.headers['Access-Control-Allow-Origin'] = '*'
@@ -153,22 +149,21 @@ def cors_headers(response):
     response.headers['Access-Control-Allow-Headers'] = '*'
     return response
 
-
 # =========================
 # MAIN
 # =========================
 if __name__ == '__main__':
     print("🚀 Balanca App iniciado no Raspberry Pi")
-    print("🌐 Servidor em http://0.0.0.0:8080")
+    print("🌐 Servidor em http://0.0.0.0:3333")
 
     # Thread da balança
     t = threading.Thread(target=monitorar_balanca, daemon=True)
     t.start()
-    
+
     try:
         app.run(
             host='0.0.0.0',
-            port=8080,
+            port=3333,
             debug=False,
             use_reloader=False
         )
